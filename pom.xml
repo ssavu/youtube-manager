@@ -59,8 +59,8 @@
   <name>Youtube Manager</name>
   <description>This is the custom module (Youtube Manager) for running on a Digital Experience Manager server.</description>
   <scm>
-    <connection>scm:dummy:uri</connection>
-    <developerConnection>scm:dummy:uri</developerConnection>
+    <connection>scm:git:git@github.com:ssavu/youtube-manager.git</connection>
+    <developerConnection>scm:git:git@github.com:ssavu/youtube-manager.git</developerConnection>
   </scm>
   <properties>
     <jersey.version>2.18</jersey.version>
