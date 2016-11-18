@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content xmlns:j="http://www.jahia.org/jahia/1.0"
+         xmlns:jcr="http://www.jcp.org/jcr/1.0"
+         xmlns:jnt="http://www.jahia.org/jahia/nt/1.0">
+<modules jcr:primaryType="jnt:modules">
+    <youtube-manager j:dependencies="default siteSettings"
+                        j:installedModules="ytm_youtubeManagerApp"
+                        j:moduleType="module"
+                        j:title="Jahia Youtube Manager"
+                        jcr:primaryType="jnt:module">
+        <portlets jcr:primaryType="jnt:portletFolder"/>
+        <files jcr:primaryType="jnt:folder"/>
+        <contents jcr:primaryType="jnt:contentFolder"/>
+        <templates j:rootTemplatePath="/" jcr:primaryType="jnt:templatesFolder">
+            <files jcr:primaryType="jnt:folder"/>
+            <contents jcr:primaryType="jnt:contentFolder"/>
+            <site-settings-base j:view="ytm-youtubeManager"
+                                  jcr:mixinTypes="jmix:useUILocale"
+                                  jcr:primaryType="jnt:template">
+                <configurations j:hiddenTemplate="false"
+                                j:titleKey="ytm_youtubeManagerApp"
+                                jcr:mixinTypes="jmix:rbTitle"
+                                jcr:primaryType="jnt:template">
+                    <youtube-manager j:applyOn="jnt:virtualsite"
+                                        j:defaultTemplate="false"
+                                        j:hiddenTemplate="false"
+                                        j:requiredPermissions="youtubeManager"
+                                        j:titleKey="ytm_youtubeManagerApp.label.playlist"
+                                        jcr:mixinTypes="jmix:rbTitle"
+                                        jcr:primaryType="jnt:contentTemplate">
+                        <pagecontent jcr:primaryType="jnt:contentList">
+                            <youtubeManagerApp
+                                    j:view="angular"
+                                    jcr:mixinTypes="jmix:renderable"
+                                    jcr:primaryType="ytm:youtubeManagerApp"/>
+                        </pagecontent>
+                    </youtube-manager>
+                </configurations>
+            </site-settings-base>
+        </templates>
+    </youtube-manager>
+</modules>
+</content>

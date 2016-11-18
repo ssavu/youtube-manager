@@ -1,0 +1,138 @@
+<md-toolbar layout-padding>
+    <div class="md-toolbar-tools">
+        <h2 message-key="ytm_youtubeManagerApp"></h2>
+        <div style="display:inline-block;float:right" class="layout">
+            <div flex-30>
+                <md-button class="md-icon-button md-warn"
+                           type="file"
+                           ng-click="mc.resetToken()">
+                    <md-icon>
+                        <i class="fa fa-refresh fa-2x" aria-label="reset"></i>
+                        <md-tooltip md-direction="bottom">Remove credential</md-tooltip>
+                    </md-icon>
+                </md-button>
+            </div>
+        </div>
+    </div>
+</md-toolbar>
+<div layout-gt-sm="row" layout="column" ng-if="mc.askRequestToken">
+    <div ng-if="mc.askRequestToken" flex-gt-sm="50">
+        <md-toolbar layout="row" class="md-hue-3">
+            <div class="md-toolbar-tools">
+                <span>Upload Credential File</span>
+            </div>
+        </md-toolbar>
+        <div layout-gt-sm="row" layout="column" layout-padding>
+            <div flex-gt-sm="85">
+                <input-container class="md-block">
+                    <md-select ng-model="mc.selectedScopes" multiple>
+                        <md-option ng-value="scope" ng-repeat="scope in mc.scopeTypes">{{scope|capitalizeFirst}}</md-option>
+                    </md-select>
+                </input-container>
+            </div>
+            <div flex-gt-sm="10" flex-offset-gt-sm="5">
+                <md-button class="md-icon-button"
+                           type="file"
+                           ngf-select="mc.requestAccessToken($file)"
+                           ngf-accept="'application/json'">
+                    <md-icon>
+                        <i class="fa fa-upload fa-2x" aria-label="upload"></i>
+                    </md-icon>
+                </md-button>
+            </div>
+        </div>
+    </div>
+</div>
+<div layout-gt-sm="row" layout="column" ng-if="!mc.askRequestToken">
+    <div flex-gt-sm="50">
+        <md-toolbar layout="row" class="md-hue-3">
+            <div class="md-toolbar-tools">
+                <span>Video Upload Details</span>
+            </div>
+        </md-toolbar>
+        <form name="{{mc.videoUploadForm}}" layout-padding>
+            <md-input-container class="md-block">
+                <label>Title</label>
+                <input required
+                       name="videoTitle"
+                       ng-model="mc.videoDetails.title"/>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Description</label>
+                <textarea ng-model="mc.videoDetails.description" rows="3"></textarea>
+            </md-input-container>
+            <div layout-gt-sm="row" layout="column">
+                <div flex-gt-sm="50">
+                    <md-input-container class="md-block">
+                        <label>Select video format</label>
+                        <md-select ng-model="mc.videoDetails.format">
+                            <md-option ng-value="format" ng-repeat="format in mc.videoFormats">{{format|capitalizeFirst}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div flex-gt-sm="50">
+                    <md-input-container class="md-block">
+                        <label>Select video status</label>
+                        <md-select ng-model="mc.videoDetails.status">
+                            <md-option ng-value="status" ng-repeat="status in mc.videoStatusTypes">{{status|capitalizeFirst}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+            <div layout-gt-sm="row" layout="column">
+                <div flex-gt-sm="10">
+                    Tag(s)
+                </div>
+                <div flex-gt-sm="90">
+                    <md-chips ng-model="mc.videoDetails.tags"
+                              name="tags"
+                              md-removable="true"
+                              read-only="true">
+                        <md-chip-template>
+                            <strong>{{$chip}}</strong>
+                        </md-chip-template>
+                    </md-chips>
+                </div>
+            </div>
+            <br/>
+            <div layout-gt-sm="row" layout="column">
+                <div flex-gt-sm="20">
+                    Select video
+                </div>
+                <div flex-gt-sm="30">
+                    <md-button class="md-icon-button"
+                               type="file"
+                               ngf-select="mc.uploadVideo($file)">
+                        <md-icon>
+                            <i class="fa fa-upload fa-2x" aria-label="upload"></i>
+                        </md-icon>
+                    </md-button>
+                </div>
+            </div>
+        </form>
+    </div>
+    &nbsp;
+    <div flex-gt-sm="50">
+            <md-toolbar layout="row" class="md-hue-3">
+                <div class="md-toolbar-tools">
+                    <span>Video Uploads Progress</span>
+                </div>
+            </md-toolbar>
+            <div layout-gt-sm="row" layout="column" ng-repeat="(uuid, videoDetails) in mc.currentUploadingVideos" layout-padding>
+                <div flex-gt-sm="25">
+                    <label>{{videoDetails.title}}</label>
+                </div>
+                <div flex-gt-sm="65">
+                    <md-progress-linear class="align-vertical-center" ng-class="{'md-warn':videoDetails.current != 100}" md-mode="buffer" value="{{videoDetails.current}}"
+                                        md-buffer-value="{{videoDetails.total}}"></md-progress-linear>
+                </div>
+                <div flex-gt-sm="10">
+                    <md-icon style="cursor:pointer;" class="align-vertical-center" ng-if="videoDetails.uploadComplete" ng-click="mc.clearVideoFromList(uuid)">
+                        <i class="fa fa-times fa-lg" aria-label="removeVideoFromlist"></i>
+                    </md-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

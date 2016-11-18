@@ -1,0 +1,9 @@
+<ytm = 'http://www.jahia.org/jahia/ytm/1.0'>
+
+[ytm:youtubeManagerApp] > jnt:content, jmix:studioOnly, mix:title, jmix:siteComponent
+
+[ytm:youtubeAuthCredential] > jnt:content
+ - ytm:credential (String) mandatory
+
+[ytm:youtubeManager] > jnt:content
+ + ytm:youtubeAuthCredential (ytm:youtubeAuthCredential)
